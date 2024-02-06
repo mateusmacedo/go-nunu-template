@@ -1,12 +1,11 @@
 <div align="center" id="top">
-  <img src="./.github/app.gif" alt="Go Notification" />
+  <img src="./.github/app.gif" alt="Go Nunu Template" />
 
   &#xa0;
 
-  <!-- <a href="https://gonotification.netlify.app">Demo</a> -->
 </div>
 
-<h1 align="center">Go Notification</h1>
+<h1 align="center">Go Nunu Template</h1>
 
 <p align="center">
   <img alt="Github top language" src="https://img.shields.io/github/languages/top/github.com/mateusmacedo/go-nunu-template?color=56BEB8">
@@ -27,7 +26,7 @@
 <!-- Status -->
 
 <h4 align="center">
- 🚧  Go Notification 🚀 Under construction...  🚧
+ 🚧  Go Nunu Template 🚀 Under construction...  🚧
 </h4>
 
 <hr>
