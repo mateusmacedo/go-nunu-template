@@ -9,7 +9,7 @@ import (
 	"github.com/mateusmacedo/go-nunu-template/pkg/zapgorm2"
 	"github.com/redis/go-redis/v9"
 	"github.com/spf13/viper"
-	"gorm.io/driver/mysql"
+	"gorm.io/driver/postgres"
 	"gorm.io/gorm"
 )
 
@@ -58,7 +58,7 @@ func (r *Repository) Transaction(ctx context.Context, fn func(ctx context.Contex
 
 func NewDB(conf *viper.Viper, l *log.Logger) *gorm.DB {
 	logger := zapgorm2.New(l.Logger)
-	db, err := gorm.Open(mysql.Open(conf.GetString("data.mysql.user")), &gorm.Config{Logger: logger})
+	db, err := gorm.Open(postgres.Open(conf.GetString("data.postgres.app")), &gorm.Config{Logger: logger})
 	if err != nil {
 		panic(err)
 	}

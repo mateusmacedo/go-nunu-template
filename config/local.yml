@@ -9,10 +9,10 @@ security:
   jwt:
     key: QQYnRFerJTSEcrfB89fw8prOaObmrch8
 data:
-  mysql:
-    app: root:123456@tcp(127.0.0.1:3380)/app?charset=utf8mb4&parseTime=True&loc=Local
+  postgres:
+    app: postgres://postgres:123456@docker:5432/app?sslmode=disable
   redis:
-    addr: 127.0.0.1:6350
+    addr: docker:6350
     password: ""
     db: 0
     read_timeout: 0.2s

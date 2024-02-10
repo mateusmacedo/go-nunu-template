@@ -71,18 +71,23 @@ Before starting :checkered_flag:, you need to have [Git](https://git-scm.com), [
 $ git clone https://github.com/github.com/mateusmacedo/go-nunu-template
 
 # Access
-$ cd go-notification
+$ cd go-nunu-template
 
 # Install dependencies
 $ go mod tidy
 
-# Compile dependencies
-$ nunu build
+# Compile wire
+$ nunu wire all
+
+# Swagger generation
+$ go install github.com/swaggo/swag/cmd/swag@latest
+$ swag init -g cmd/server/main.go -o ./docs --parseDependency
 
 # Run the project
-$ nunu run
+$ nunu run ./cmd/server  --excludeDir=".git,.idea,tmp,vendor" --includeExt="go,yml,vue"  -- --conf=./config/local.yml
 
 # The server will initialize in the <http://localhost:8000>
+# The swagger is accessible in the <http://localhost:8000/swagger/index.html>
 ```
 
 ## :memo: License ##

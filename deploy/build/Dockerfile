@@ -1,4 +1,4 @@
-FROM golang:1.18-alpine3.16 AS builder
+FROM 1.22.0-alpine3.19 AS builder
 RUN set -eux && sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 
 ARG APP_RELATIVE_PATH
@@ -11,7 +11,7 @@ RUN export GOPROXY=https://goproxy.cn,direct && go mod tidy && go build -ldflags
 RUN mv config /data/app/bin/
 
 
-FROM alpine:3.16
+FROM alpine:3.19
 RUN set -eux && sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
 
 
