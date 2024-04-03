@@ -1,0 +1,28 @@
+{
+    "material-icon-theme.activeIconPack": "none",
+    "material-icon-theme.folders.associations": {
+        "gateway": "Connection",
+        "tracking": "Target",
+        "dto": "Resource",
+        "http": "Client",
+        "application": "App",
+        "message": "Messages",
+        "query": "Mappings",
+        "resilience": "Components",
+        "collection": "Cluster",
+        "repository": "Database",
+        "domain": "Components",
+    },
+    "go.coverOnSave": true,
+    "go.coverageDecorator": {
+        "type": "gutter",
+        "coveredHighlightColor": "rgba(64,128,128,0.5)",
+        "uncoveredHighlightColor": "rgba(128,64,64,0.25)",
+        "coveredGutterStyle": "blockgreen",
+        "uncoveredGutterStyle": "blockred"
+    },
+    "go.coverOnSingleTest": true,
+    "go.testOnSave": true,
+    "go.disableConcurrentTests": false,
+    "go.buildTags": "wireinject",
+}
