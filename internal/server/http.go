@@ -21,6 +21,7 @@ func NewHTTPServer(
 	jwt *jwt.JWT,
 	userHandler *handler.UserHandler,
 ) *http.Server {
+
 	// gin.SetMode(gin.DebugMode)
 	s := http.NewServer(
 		gin.Default(),
@@ -37,12 +38,15 @@ func NewHTTPServer(
 		ginSwagger.DefaultModelsExpandDepth(-1),
 	))
 
+	// Middleware
 	s.Use(
 		middleware.CORSMiddleware(),
 		middleware.ResponseLogMiddleware(logger),
 		middleware.RequestLogMiddleware(logger),
 		//middleware.SignMiddleware(log),
 	)
+
+	// Routes
 	s.GET("/", func(ctx *gin.Context) {
 		logger.WithContext(ctx).Info("hello")
 		apiV1.HandleSuccess(ctx, map[string]interface{}{
@@ -50,6 +54,7 @@ func NewHTTPServer(
 		})
 	})
 
+	// API v1
 	v1 := s.Group("/v1")
 	{
 		// No route group has permission
@@ -58,6 +63,7 @@ func NewHTTPServer(
 			noAuthRouter.POST("/register", userHandler.Register)
 			noAuthRouter.POST("/login", userHandler.Login)
 		}
+
 		// Non-strict permission routing group
 		noStrictAuthRouter := v1.Group("/").Use(middleware.NoStrictAuth(jwt, logger))
 		{
