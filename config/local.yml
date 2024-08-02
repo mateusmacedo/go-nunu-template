@@ -11,6 +11,10 @@ security:
     key: QQYnRFerJTSEcrfB89fw8prOaObmrch8
 data:
   db:
+    engine: mysql
+    maxIdleConns: 10
+    maxOpenConns: 100
+    MaxLifetime: 0
     mysql:
       driver: mysql
       dsn: root:123456@tcp(127.0.0.1:3306)/user?charset=utf8mb4&parseTime=True&loc=Local

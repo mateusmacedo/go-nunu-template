@@ -70,8 +70,23 @@ func NewDB(conf *viper.Viper, l *log.Logger) *gorm.DB {
 	)
 
 	logger := zapgorm2.New(l.Logger)
-	driver := conf.GetString("data.db.mysql.driver")
-	dsn := conf.GetString("data.db.mysql.dsn")
+
+	dbengine := conf.GetString("data.db.engine")
+	var dsn string
+	var driver string
+	switch dbengine {
+	case "mysql":
+		driver = conf.GetString("data.db.mysql.driver")
+		dsn = conf.GetString("data.db.mysql.dsn")
+	case "postgres":
+		driver = conf.GetString("data.db.postgres.driver")
+		dsn = conf.GetString("data.db.postgres.dsn")
+	case "sqlite":
+		driver = conf.GetString("data.db.sqlite.driver")
+		dsn = conf.GetString("data.db.sqlite.dsn")
+	default:
+		panic("unknown db engine")
+	}
 
 	// GORM doc: https://gorm.io/docs/connecting_to_the_database.html
 	switch driver {
@@ -89,6 +104,7 @@ func NewDB(conf *viper.Viper, l *log.Logger) *gorm.DB {
 	default:
 		panic("unknown db driver")
 	}
+
 	if err != nil {
 		panic(err)
 	}
@@ -99,9 +115,29 @@ func NewDB(conf *viper.Viper, l *log.Logger) *gorm.DB {
 	if err != nil {
 		panic(err)
 	}
-	sqlDB.SetMaxIdleConns(10)
-	sqlDB.SetMaxOpenConns(100)
-	sqlDB.SetConnMaxLifetime(time.Hour)
+
+	iconn := conf.GetInt("data.db.maxIdleConns")
+	if iconn > 0 {
+		sqlDB.SetMaxIdleConns(iconn)
+	} else {
+		sqlDB.SetMaxIdleConns(10)
+	}
+
+	oconn := conf.GetInt("data.db.maxOpenConns")
+	if oconn > 0 {
+		sqlDB.SetMaxOpenConns(oconn)
+	} else {
+		sqlDB.SetMaxOpenConns(100)
+	}
+
+	ltime := conf.GetDuration("data.db.MaxLifetime")
+	if ltime > 0 {
+		t := time.Duration(ltime) * time.Second
+		sqlDB.SetConnMaxLifetime(time.Duration(t))
+	} else {
+		sqlDB.SetConnMaxLifetime(time.Hour)
+	}
+
 	return db
 }
 func NewRedis(conf *viper.Viper) *redis.Client {
