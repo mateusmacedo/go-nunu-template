@@ -25,4 +25,5 @@
     "go.testOnSave": true,
     "go.disableConcurrentTests": false,
     "go.buildTags": "wireinject",
+    "CodeGPT.apiKey": "CodeGPT Plus Beta",
 }
